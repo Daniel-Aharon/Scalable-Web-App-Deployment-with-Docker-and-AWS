@@ -16,7 +16,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: danielaharon555/Scalable Web App Deployment with Docker and AWS
+          images: danielaharon555/dock_deploy
 
       - name: Log into DockerHub
         uses: docker/login-action@v3
