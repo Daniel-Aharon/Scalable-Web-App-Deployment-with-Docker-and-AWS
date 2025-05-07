@@ -1,11 +1,19 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response
+from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST, start_http_server, Summary
 
 app = Flask(__name__)
 
+REQUEST_COUNTER = Counter("http_requests_total", "Total HTTP Requests")
+
 @app.route("/")
 def hello_world():
+    REQUEST_COUNTER.inc()
     return "<p>Hello from my simple flask app!</p>"
 
+
+@app.route("/metrics")
+def metrics():
+    return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
 
 @app.route("/api/items")
 def get_items():
