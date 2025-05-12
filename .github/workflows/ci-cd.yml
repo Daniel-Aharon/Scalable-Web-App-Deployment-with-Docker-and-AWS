@@ -60,8 +60,10 @@ jobs:
       
       - name: Initializing a Terraform
         run: |
-         cd terraform 
+         cd terraform/
          terraform init -upgrade
       
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: |
+          cd terraform/
+          terraform apply -auto-approve
