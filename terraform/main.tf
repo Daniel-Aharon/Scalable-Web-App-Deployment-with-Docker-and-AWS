@@ -2,6 +2,18 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = "daniel-test-bucket-2025"
+  force_destroy = true
+}
+
+resource "aws_s3_object" "my_file" {
+  bucket = aws_s3_bucket.my_bucket.id
+  key    = "uploaded-folder/test-pic.txt"
+  source = "${path.module}/../test-pic.txt"
+  etag   = filemd5("${path.module}/../test-pic.txt")
+}
+
 # Fetch the default VPC for the region
 data "aws_vpc" "default" {
   default = true
